@@ -14,6 +14,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {
+      email,
+      password,
+    };
+    axios
+      .post("http://localhost:9000/api/auth/login", data)
+      .then(({ data }) => {
+        console.log(data);
+        localStorage.setItem("token", data.authToken);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
