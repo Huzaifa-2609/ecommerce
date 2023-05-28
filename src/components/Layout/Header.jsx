@@ -55,7 +55,7 @@ const Header = ({ activeHeading }) => {
   return (
     <>
       <div className={`${styles.section}`}>
-        <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
+        <div className="hidden md:h-[50px] md:my-[20px] md:flex items-center justify-between">
           <div>
             <Link to="/">
               <img
@@ -110,8 +110,8 @@ const Header = ({ activeHeading }) => {
       </div>
       <div
         className={`${
-          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        } transition hidden 800px:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
+          active ? "shadow-sm fixed top-0 left-0 z-10" : null
+        } transition md:flex items-center justify-between w-full bg-[#3f9585] h-[70px]`}
       >
         <div
           className={`${styles.section} relative ${styles.noramlFlex} justify-between`}
@@ -139,7 +139,7 @@ const Header = ({ activeHeading }) => {
             </div>
           </div>
           {/* navitems */}
-          <div className={`${styles.noramlFlex}`}>
+          <div className={`${styles.noramlFlex} md:flex`}>
             <Navbar active={activeHeading} />
           </div>
 
@@ -201,11 +201,12 @@ const Header = ({ activeHeading }) => {
       </div>
 
       {/* mobile header */}
+
       <div
         className={`${
           active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
         }
-      w-full h-[60px] bg-[#fff] z-50 top-0 left-0 shadow-sm 800px:hidden`}
+      w-full h-[60px] bg-[#fff] z-50 top-0 left-0 shadow-sm md:hidden`}
       >
         <div className="w-full flex items-center justify-between">
           <div>
@@ -215,6 +216,7 @@ const Header = ({ activeHeading }) => {
               onClick={() => setOpen(true)}
             />
           </div>
+          asdasd
           <div>
             <Link to="/">
               <img
@@ -237,7 +239,6 @@ const Header = ({ activeHeading }) => {
           </div>
           {/* cart popup */}
           {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
-
           {/* wishlist popup */}
           {openWishlist ? <Wishlist setOpenWishlist={setOpenWishlist} /> : null}
         </div>
