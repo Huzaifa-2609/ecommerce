@@ -5,6 +5,7 @@ const connectToMongo = require("./db");
 const cors = require("cors");
 // const auth = require("./middleware/auth");
 
+
 dotenv.config();
 connectToMongo().then(() => console.log("connected to DB!"));
 
@@ -18,3 +19,4 @@ app.use("/api/auth", require("./routes/auth"));
 app.listen(9000, () => {
   console.log("app is running on port: " + 9000);
 });
+
