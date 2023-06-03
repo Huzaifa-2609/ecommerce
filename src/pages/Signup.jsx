@@ -13,6 +13,7 @@ const Singup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [loader, setLoader] = useState(false);
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -59,7 +60,7 @@ const Singup = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Full Name
+                First Name
               </label>
               <div className="mt-1">
                 <input
@@ -69,6 +70,22 @@ const Singup = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="text"
+                  autoComplete="name"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>

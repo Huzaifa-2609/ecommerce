@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Header from "../components/Layout/Header";
 import Hero from "../components/Route/Hero/Hero";
 import Categories from "../components/Route/Categories/Categories";
@@ -8,19 +8,19 @@ import Events from "../components/Events/Events";
 import Sponsored from "../components/Route/Sponsored";
 import Footer from "../components/Layout/Footer";
 
-const HomePage = () => {
+export const Home = () => {
   return (
     <div>
-        <Header activeHeading={1} />
-        <Hero />
-        <Categories />
-        <BestDeals />
-        <Events />
-        <FeaturedProduct />
-        <Sponsored />
-        <Footer />
+      <Header activeHeading={1} />
+      <Hero />
+      <Categories />
+      <BestDeals />
+      <Events />
+      <FeaturedProduct />
+      <Sponsored />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+// export default Home;
