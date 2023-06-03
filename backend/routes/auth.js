@@ -30,7 +30,7 @@ router.post(
     if (user) {
       return res.status(400).json({
         success,
-        message: "The user with the same email already exists",
+        error: "The user with the same email already exists",
       });
     }
 

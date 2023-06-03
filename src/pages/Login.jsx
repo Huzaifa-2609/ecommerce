@@ -4,16 +4,19 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { server } from "../../server";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import Spinner from "../components/loaders/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     const data = {
       email,
       password,
@@ -21,11 +24,16 @@ const Login = () => {
     axios
       .post("http://localhost:9000/api/auth/login", data)
       .then(({ data }) => {
+        setLoader(false);
         console.log(data);
         localStorage.setItem("token", data.authToken);
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoader(false);
+
+        toast.error(err?.response?.data?.error);
+      });
   };
 
   return (
@@ -116,9 +124,13 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#3f9585] hover:bg-[#2f8878]"
+                className="group relative items-center w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#3f9585] hover:bg-[#2f8878]"
               >
-                Submit
+                {loader ? (
+                  <Spinner color="#ffff" size={8} loading={true} />
+                ) : (
+                  "Login"
+                )}
               </button>
             </div>
             <div className={`flex items-center w-full`}>

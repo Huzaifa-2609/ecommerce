@@ -7,11 +7,14 @@ import Home from "./pages/Home";
 import BestSelling from "./pages/BestSelling";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetails";
+import HotToast from "./components/notification/HotToast";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Toaster />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Singup />} />
