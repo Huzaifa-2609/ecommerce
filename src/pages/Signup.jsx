@@ -4,15 +4,21 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
-import { toast } from "react-toastify";
+import Spinner from "../components/loaders/Spinner";
+import { notify } from "../redux/actions/notification";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 let server = "localhost";
 const Singup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [loader, setLoader] = useState(false);
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const dispatch = useDispatch();
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -21,6 +27,7 @@ const Singup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     const data = {
       name,
       email,
@@ -30,10 +37,15 @@ const Singup = () => {
       .post("http://localhost:9000/api/auth/createuser", data)
       .then(({ data }) => {
         console.log(data);
+        setLoader(false);
         localStorage.setItem("token", data.authToken);
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoader(false);
+        toast.error(err?.response?.data?.error);
+        console.log(err?.response?.data?.error);
+      });
   };
 
   return (
@@ -48,7 +60,7 @@ const Singup = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Full Name
+                First Name
               </label>
               <div className="mt-1">
                 <input
@@ -58,6 +70,22 @@ const Singup = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="text"
+                  autoComplete="name"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
@@ -147,15 +175,22 @@ const Singup = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#3f9585] hover:bg-[#2f8878]"
+                className="group relative w-full h-[40px] flex items-center justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#3f9585] hover:bg-[#2f8878]"
               >
-                Submit
+                {loader ? (
+                  <Spinner color="#ffff" size={8} loading={true} />
+                ) : (
+                  "Register"
+                )}
               </button>
             </div>
             <div className={`flex items-center w-full`}>
               <h4>Already have an account?</h4>
-              <Link to="/login" className="text-[#3f9585] hover:text-[#2f8878] pl-2">
-                Sign In
+              <Link
+                to="/login"
+                className="text-[#3f9585] hover:text-[#2f8878] pl-2"
+              >
+                Login
               </Link>
             </div>
           </form>
