@@ -33,8 +33,8 @@ const shopSchema = new mongoose.Schema({
     default: "Seller",
   },
   avatar: {
-    type: String,
-    required: true,
+    data: Buffer, // Buffer to store the image data
+    contentType: String, // Mime type of the image
   },
   zipCode: {
     type: Number,
