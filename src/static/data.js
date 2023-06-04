@@ -5,6 +5,9 @@ import Products from "../pages/Products";
 import Singup from "../pages/Signup";
 import { BestSellingPage } from "../pages/BestSelling";
 import { Home } from "../pages/Home";
+import Store from "../redux/store";
+import persistStore from "redux-persist/es/persistStore";
+import { Navigate } from "react-router-dom";
 
 // navigation Data
 export const navItems = [
@@ -29,8 +32,10 @@ export const navItems = [
     url: "/faq",
   },
 ];
-const authorized = localStorage.getItem("token");
-const authRoutes = [
+let persistor = persistStore(Store);
+const storage = localStorage.getItem("persist:root");
+
+export const authRoutes = [
   {
     component: <Login />,
     route: "/login",
@@ -62,9 +67,7 @@ export const publicRoutes = [
     route: "*",
   },
 ];
-export const routes = !authorized
-  ? [...publicRoutes, ...authRoutes]
-  : publicRoutes;
+export const routes = publicRoutes;
 
 // branding data
 export const brandingData = [

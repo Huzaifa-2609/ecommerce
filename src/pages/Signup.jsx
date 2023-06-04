@@ -8,6 +8,7 @@ import Spinner from "../components/loaders/Spinner";
 import { notify } from "../redux/actions/notification";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { loadUser } from "../redux/actions/user";
 let server = "localhost";
 const Singup = () => {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ const Singup = () => {
     e.preventDefault();
     setLoader(true);
     const data = {
-      name,
+      firstName: name,
+      lastName,
       email,
       password,
     };
@@ -37,6 +39,7 @@ const Singup = () => {
       .post("http://localhost:9000/api/auth/createuser", data)
       .then(({ data }) => {
         console.log(data);
+        dispatch(loadUser(data));
         setLoader(false);
         localStorage.setItem("token", data.authToken);
         navigate("/");

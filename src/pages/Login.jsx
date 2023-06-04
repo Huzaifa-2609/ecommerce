@@ -6,6 +6,8 @@ import axios from "axios";
 // import { server } from "../../server";
 import toast from "react-hot-toast";
 import Spinner from "../components/loaders/Spinner";
+import { useDispatch } from "react-redux";
+import { loadUser } from "../redux/actions/user";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +29,7 @@ const Login = () => {
       .then(({ data }) => {
         setLoader(false);
         console.log(data);
+        dispatch(loadUser(data));
         localStorage.setItem("token", data.authToken);
         navigate("/");
       })

@@ -12,11 +12,12 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { backend_url } from "../../server";
 import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
+import { logout } from "../../redux/actions/user";
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -31,7 +32,7 @@ const Header = ({ activeHeading }) => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -51,6 +52,11 @@ const Header = ({ activeHeading }) => {
       setActive(false);
     }
   });
+
+  const handleLogout = () => {
+    window.location.reload(true);
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -168,23 +174,64 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
 
-            <div className={`${styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
-                {isAuthenticated ? (
-                  <Link to="/profile">
-                    <img
-                      src={`${backend_url}${user?.avatar}`}
-                      className="w-[35px] h-[35px] rounded-full"
-                      alt=""
-                    />
-                  </Link>
-                ) : (
-                  <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
-                  </Link>
-                )}
+            {/* <div className={`${styles.noramlFlex}`}>
+              <div className="relative cursor-pointer mr-[15px]"> */}
+            {isAuthenticated ? (
+              <div class="relative inline-block text-left">
+                <div>
+                  <button
+                    type="button"
+                    class="inline-flex text-white rounded-full w-full justify-center gap-x-1.5 bg-[#3bc177] px-3 py-2 text-sm font-semibold cursor-pointer shadow-sm ring-1 ring-inset ring-[#3bc177] hover:bg-[#2bb469]"
+                    id="menu-button"
+                    aria-expanded="true"
+                    aria-haspopup="true"
+                    onClick={() =>
+                      (document.getElementById("dropmenu").style.display =
+                        document.getElementById("dropmenu").style.display ===
+                        "none"
+                          ? "block"
+                          : "none")
+                    }
+                  >
+                    {(
+                      user?.firstName.split("")[0] +
+                      user?.firstName.split("")[0]
+                    ).toUpperCase()}
+                  </button>
+                </div>
+
+                <div
+                  class="absolute  right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
+                  tabindex="-1"
+                  id="dropmenu"
+                  style={{ display: "none" }}
+                >
+                  <div class="py-1" role="none">
+                    <form method="POST" action="#" role="none">
+                      <button
+                        type="submit"
+                        class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
+                        role="menuitem"
+                        tabindex="-1"
+                        id="menu-item-3"
+                        onClick={handleLogout}
+                      >
+                        Sign out
+                      </button>
+                    </form>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <Link to="/login">
+                <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+              </Link>
+            )}
+            {/* </div>
+            </div> */}
 
             {/* cart popup */}
             {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
@@ -310,15 +357,35 @@ const Header = ({ activeHeading }) => {
 
               <div className="flex w-full justify-center">
                 {isAuthenticated ? (
-                  <div>
-                    <Link to="/profile">
-                      <img
-                        src={`${backend_url}${user.avatar}`}
-                        alt=""
-                        className="w-[60px] h-[60px] rounded-full border-[3px] border-[#0eae88]"
-                      />
-                    </Link>
-                  </div>
+                  <>
+                    <button
+                      id="dropdownDefaultButton"
+                      data-dropdown-toggle="dropdown"
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      type="button"
+                    >
+                      {user.firstName.toUpperCase() +
+                        user.lastName.toUpperCase()}
+                    </button>
+                    <div
+                      id="dropdown"
+                      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                    >
+                      <ul
+                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownDefaultButton"
+                      >
+                        <li>
+                          <a
+                            href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Sign out
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <Link

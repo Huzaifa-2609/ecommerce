@@ -12,7 +12,10 @@ const { body, validationResult } = require("express-validator");
 router.post(
   "/createuser",
   [
-    body("name", "Enter valid Name").isLength({
+    body("firstName", "Enter valid first name").isLength({
+      min: 3,
+    }),
+    body("lastName", "Enter valid last name").isLength({
       min: 3,
     }),
     body("email", "Enter a valid email").isEmail(),
@@ -48,7 +51,8 @@ router.post(
 
       //Create user in database
       user = await User.create({
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: secPass,
         email: req.body.email,
       });
@@ -61,13 +65,16 @@ router.post(
       };
       success = true;
       const authToken = jwt.sign(data, JWT_SECRET);
+      delete user._doc.password;
+
       res.json({
         success,
+        ...user._doc,
         authToken,
       });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("some error occured");
+      res.status(500).send(error.message);
     }
   }
 );
@@ -114,8 +121,10 @@ router.post(
       };
       const authToken = jwt.sign(data, JWT_SECRET);
       success = true;
+      delete user._doc.password;
       res.json({
         success,
+        ...user._doc,
         authToken,
       });
     } catch (error) {
