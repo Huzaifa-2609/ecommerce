@@ -3,8 +3,8 @@ const path = require("path");
 const router = express.Router();
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../utils/sendMail");
-const sendToken = require("../utils/jwtToken");
+// const sendMail = require("../utils/sendMail");
+// const sendToken = require("../utils/jwtToken");
 const Shop = require("../models/shop");
 const { isAuthenticated, isSeller, isAdmin } = require("../middleware/auth");
 const { upload } = require("../multer");
@@ -46,19 +46,19 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
 
     const activationUrl = `https://eshop-tutorial-cefl.vercel.app/seller/activation/${activationToken}`;
 
-    try {
-      await sendMail({
-        email: seller.email,
-        subject: "Activate your Shop",
-        message: `Hello ${seller.name}, please click on the link to activate your shop: ${activationUrl}`,
-      });
-      res.status(201).json({
-        success: true,
-        message: `please check your email:- ${seller.email} to activate your shop!`,
-      });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
+    // try {
+    //   await sendMail({
+    //     email: seller.email,
+    //     subject: "Activate your Shop",
+    //     message: `Hello ${seller.name}, please click on the link to activate your shop: ${activationUrl}`,
+    //   });
+    //   res.status(201).json({
+    //     success: true,
+    //     message: `please check your email:- ${seller.email} to activate your shop!`,
+    //   });
+    // } catch (error) {
+    //   return next(new ErrorHandler(error.message, 500));
+    // }
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
