@@ -27,10 +27,19 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please enter your product stock!"],
   },
-  images: {
-    data: Buffer, // Buffer to store the image data
-    contentType: String, // Mime type of the image
-  },
+images: [
+    {
+      data: {
+        type: Buffer,
+        required: true,
+      },
+      contentType: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+
 
   reviews: [
     {

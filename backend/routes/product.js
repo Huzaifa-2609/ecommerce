@@ -73,16 +73,16 @@ router.delete(
 
       const productData = await Product.findById(productId);
 
-      productData.images.forEach((imageUrl) => {
-        const filename = imageUrl;
-        const filePath = `uploads/${filename}`;
+      // productData.images.forEach((imageUrl) => {
+      //   const filename = imageUrl;
+      //   const filePath = `uploads/${filename}`;
 
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      });
+      //   fs.unlink(filePath, (err) => {
+      //     if (err) {
+      //       console.log(err);
+      //     }
+      //   });
+      // });
 
       const product = await Product.findByIdAndDelete(productId);
 
@@ -174,7 +174,7 @@ router.get(
 //   })
 // );
 
-// // all products --- for admin
+// // all products --- 
 // router.get(
 //   "/admin-all-products",
 //   isAuthenticated,
