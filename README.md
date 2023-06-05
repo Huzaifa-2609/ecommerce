@@ -7,9 +7,7 @@ This is a full-stack ecommerce project built using the MERN (MongoDB, Express.js
 - User authentication: Users can create accounts, log in, and log out. Authentication is handled using JSON Web Tokens (JWT) for secure and stateless communication.
 - Product listing: Products are stored in a MongoDB database and can be viewed and searched on the frontend.
 - Product details: Users can view detailed information about each product, including price, description, and images.
-- Shopping cart: Users can add products to their shopping cart and update the quantities or remove items.
 - Checkout process: Users can proceed to the checkout process, enter shipping and payment details, and place orders.
-- Order management: Admin users have access to an admin panel where they can manage orders, mark them as shipped, and view order details.
 - User profiles: Users can view and edit their profile information, including shipping addresses and payment methods.
 
 ## Prerequisites
@@ -22,4 +20,66 @@ Before running the project, make sure you have the following installed:
 ## Getting Started
 
 1. Clone the repository:
+git clone <repository_url>
+
+
+2. Navigate to the project directory:
+
+cd mern-ecommerce-project
+
+3. Install the dependencies:
+npm install
+
+
+4. Set up the environment variables:
+
+- Create a `.env` file in the root of the project.
+- Add the following variables to the `.env` file and replace the values with your own:
+
+  ```
+  PORT=<port_number>
+  NODE_ENV=development
+  MONGO_URI=<mongodb_uri>
+  JWT_SECRET=<jwt_secret>
+  ```
+
+5. Populate the database with sample data:
+
+npm run data:import
+
+
+6. Run the application:
+
+- Start the backend server:
+
+  ```
+  npm run server
+  ```
+
+- Start the frontend development server:
+
+  ```
+  npm run client
+  ```
+
+The server should start running on the specified port, and you can access the application in your browser at `http://localhost:<port_number>`.
+
+**Note:** The backend server and frontend development server should be started concurrently using two separate terminal windows or with a tool like [concurrently](https://www.npmjs.com/package/concurrently).
+
+## Project Structure
+
+The project follows a modular architecture, with the frontend and backend code organized into separate directories.
+
+- `backend`: Contains the server-side code, including the API routes, database models, controllers, and middleware.
+- `frontend`: Contains the client-side code, including the React components, styles, and utility functions.
+- `public`: Contains static assets, such as images and favicon.
+- `scripts`: Contains scripts for database population and other utility tasks.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or would like to suggest improvements, please create an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Feel free to use and modify the code for your own purposes.
 
