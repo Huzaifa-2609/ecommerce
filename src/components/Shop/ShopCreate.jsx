@@ -4,24 +4,27 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { RxAvatar } from "react-icons/rx";
+import { toast } from "react-hot-toast";
+import Spinner from "../loaders/Spinner";
 
 const ShopCreate = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [name,setName] = useState("");
-  const [phoneNumber,setPhoneNumber] = useState();
-  const [address,setAddress] = useState("");
-  const [zipCode,setZipCode] = useState();
-  const [avatar,setAvatar] = useState();
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [address, setAddress] = useState("");
+  const [zipCode, setZipCode] = useState();
+  const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-     
+  const [loader, setLoader] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = { headers: { "Content-Type": "multipart/form-data" } };
-
+    setLoader(true);
     const newForm = new FormData();
 
     newForm.append("image", avatar);
@@ -34,7 +37,8 @@ const ShopCreate = () => {
     axios
       .post(`${server}/shop/create-shop`, newForm, config)
       .then((res) => {
-        toast.success(res.data.message);
+        toast.success("Login successfull! Login to your shop");
+        setLoader(false);
         setName("");
         setEmail("");
         setPassword("");
@@ -45,6 +49,9 @@ const ShopCreate = () => {
       })
       .catch((error) => {
         // toast.error(error.response.data.message);
+        setLoader(false);
+        toast.error(error?.response?.data?.error);
+
         console.log(error);
       });
   };
@@ -58,14 +65,13 @@ const ShopCreate = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-         Register as a seller
+          Register as a seller
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
-
-          <div>
+            <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -193,7 +199,7 @@ const ShopCreate = () => {
                 )}
               </div>
             </div>
-          
+
             <div>
               <label
                 htmlFor="avatar"
@@ -230,9 +236,13 @@ const ShopCreate = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                className="group items-center relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
-                Submit
+                {loader ? (
+                  <Spinner color="#ffff" size={8} loading={true} />
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>

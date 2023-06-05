@@ -4,33 +4,37 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+import Spinner from "../loaders/Spinner";
+// import { toast } from "react-toastify";
 
 const ShopLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoader(true);
     await axios
-      .post(
-        `${server}/login-shop`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+      .post(`${server}/shop/login-shop`, {
+        email,
+        password,
+      })
       .then((res) => {
-        toast.success("Login Success!");
         navigate("/dashboard");
-        window.location.reload(true); 
+        setLoader(false);
+
+        window.location.reload(true);
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        setLoader(false);
+
+        // toast.error(err.response.data.message);
+        toast.error(err?.response?.data?.error);
+        console.log(err);
       });
   };
 
@@ -122,9 +126,13 @@ const ShopLogin = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                className="group items-center relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
-                Submit
+                {loader ? (
+                  <Spinner color="#ffff" size={8} loading={true} />
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>

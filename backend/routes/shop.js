@@ -18,7 +18,7 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
     const { email } = req.body;
     const sellerEmail = await Shop.findOne({ email });
     if (sellerEmail) {
-      throw new Error("User already exists");
+      throw new Error("Shop User already exists");
     }
     const imageBuffer = req.file.buffer;
     const imageContentType = req.file.mimetype;
@@ -73,7 +73,7 @@ router.post(
       let seller = await Shop.findOne({ email });
 
       if (seller) {
-        return next(new ErrorHandler("User already exists", 400));
+        return next(new ErrorHandler("Shop User already exists", 400));
       }
 
       seller = await Shop.create({
@@ -113,14 +113,15 @@ router.post(
       const isPasswordValid = await user.comparePassword(password);
 
       if (!isPasswordValid) {
-        return next(
-          new ErrorHandler("Please provide the correct information", 400)
-        );
+        throw Error("Enter correct information");
       }
 
       sendShopToken(user, 201, res);
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return res.status(400).json({
+        error: error.message,
+        success: false,
+      });
     }
   })
 );
