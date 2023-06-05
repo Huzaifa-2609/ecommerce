@@ -53,7 +53,9 @@ npm run data:import
 - Start the backend server:
 
   ```
-  npm run server
+  cd .\backend\
+
+  nodemon
   ```
 
 - Start the frontend development server:
