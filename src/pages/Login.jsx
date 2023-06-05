@@ -29,9 +29,9 @@ const Login = () => {
       .then(({ data }) => {
         setLoader(false);
         console.log(data);
-        dispatch(loadUser(data));
-        localStorage.setItem("token", data.authToken);
         navigate("/");
+        localStorage.setItem("token", data.authToken);
+        dispatch(loadUser(data));
       })
       .catch((err) => {
         setLoader(false);

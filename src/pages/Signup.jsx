@@ -39,10 +39,10 @@ const Singup = () => {
       .post("http://localhost:9000/api/auth/createuser", data)
       .then(({ data }) => {
         console.log(data);
-        dispatch(loadUser(data));
+        navigate("/");
         setLoader(false);
         localStorage.setItem("token", data.authToken);
-        navigate("/");
+        dispatch(loadUser(data));
       })
       .catch((err) => {
         setLoader(false);
