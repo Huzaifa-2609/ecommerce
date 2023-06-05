@@ -31,24 +31,13 @@ cd mern-ecommerce-project
 npm install
 
 
-4. Set up the environment variables:
 
-- Create a `.env` file in the root of the project.
-- Add the following variables to the `.env` file and replace the values with your own:
-
-  ```
-  PORT=<port_number>
-  NODE_ENV=development
-  MONGO_URI=<mongodb_uri>
-  JWT_SECRET=<jwt_secret>
-  ```
-
-5. Populate the database with sample data:
+4. Populate the database with sample data:
 
 npm run data:import
 
 
-6. Run the application:
+5. Run the application:
 
 - Start the backend server:
 
