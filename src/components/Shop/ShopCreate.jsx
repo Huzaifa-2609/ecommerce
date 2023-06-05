@@ -24,7 +24,7 @@ const ShopCreate = () => {
 
     const newForm = new FormData();
 
-    newForm.append("file", avatar);
+    newForm.append("image", avatar);
     newForm.append("name", name);
     newForm.append("email", email);
     newForm.append("password", password);

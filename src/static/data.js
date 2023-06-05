@@ -9,6 +9,8 @@ import Store from "../redux/store";
 import persistStore from "redux-persist/es/persistStore";
 import ShopCreate from "../pages/ShopCreate"
 import { Navigate } from "react-router-dom";
+import ShopLoginPage from "../pages/ShopLoginPage";
+
 
 // navigation Data
 export const navItems = [
@@ -71,6 +73,10 @@ export const publicRoutes = [
     component: <ShopCreate />,
     route: "/shop-create",
   },
+  {
+    component: <ShopLoginPage />,
+    route: "/shop-login",
+  }
 ];
 export const routes = publicRoutes;
 
