@@ -1,3 +1,3 @@
-export const server = "https://localhost:9000/api/v2";
+export const server = "http://localhost:9000/api";
 
 export const backend_url = "https://localhost:9000";

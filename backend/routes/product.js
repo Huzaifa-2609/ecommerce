@@ -11,7 +11,7 @@ const fs = require("fs");
 
 // create product
 router.post(
-  "/create-product",
+  `https://localhost:9000/api/v2/product/create-product`,
   upload.array("images"),
   catchAsyncErrors(async (req, res, next) => {
     try {

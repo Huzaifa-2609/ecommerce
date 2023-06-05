@@ -69,7 +69,7 @@ export const publicRoutes = [
   },
   {
     component: <ShopCreate />,
-    route: "../pages/ShopCreate.jsx",
+    route: "/shop-create",
   },
 ];
 export const routes = publicRoutes;

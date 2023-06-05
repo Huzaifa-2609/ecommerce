@@ -17,7 +17,7 @@ const ShopLogin = () => {
 
     await axios
       .post(
-        "http://localhost:9000/api/shop/create-shop",
+        `${server}/login-shop`,
         {
           email,
           password,
