@@ -7,6 +7,7 @@ import { BestSellingPage } from "../pages/BestSelling";
 import { Home } from "../pages/Home";
 import Store from "../redux/store";
 import persistStore from "redux-persist/es/persistStore";
+import ShopCreate from "../pages/ShopCreate"
 import { Navigate } from "react-router-dom";
 
 // navigation Data
@@ -65,6 +66,10 @@ export const publicRoutes = [
   {
     component: <NotFound />,
     route: "*",
+  },
+  {
+    component: <ShopCreate />,
+    route: "../pages/ShopCreate.jsx",
   },
 ];
 export const routes = publicRoutes;

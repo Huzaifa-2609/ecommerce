@@ -54,7 +54,6 @@ const Header = ({ activeHeading }) => {
   });
 
   const handleLogout = () => {
-    window.location.reload(true);
     dispatch(logout());
   };
 
