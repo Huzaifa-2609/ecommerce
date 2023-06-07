@@ -42,10 +42,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
       payload: data.products,
     });
   } catch (error) {
-    dispatch({
-      type: "getAllProductsShopFailed",
-      payload: error.response.data.message,
-    });
+    console.log(error);
   }
 };
 

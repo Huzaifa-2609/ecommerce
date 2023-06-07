@@ -27,11 +27,15 @@ const Login = () => {
     axios
       .post("http://localhost:9000/api/auth/login", data)
       .then(({ data }) => {
+        navigate("/");
         setLoader(false);
         console.log(data);
-        navigate("/");
         localStorage.setItem("token", data.authToken);
-        dispatch(loadUser(data));
+        setTimeout(function () {
+          // Code to be executed after two seconds
+          dispatch(loadUser(data));
+          console.log("Action performed after two seconds");
+        }, 100);
       })
       .catch((err) => {
         setLoader(false);

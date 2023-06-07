@@ -42,7 +42,11 @@ const Singup = () => {
         navigate("/");
         setLoader(false);
         localStorage.setItem("token", data.authToken);
-        dispatch(loadUser(data));
+        setTimeout(function () {
+          // Code to be executed after two seconds
+          dispatch(loadUser(data));
+          console.log("Action performed after two seconds");
+        }, 100);
       })
       .catch((err) => {
         setLoader(false);

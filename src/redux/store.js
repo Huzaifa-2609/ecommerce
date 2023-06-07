@@ -13,7 +13,14 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["loadUser"], // which reducer want to store
+  blacklist: [
+    "loadUser",
+    "LoadSellerSuccess",
+    "LoadSellerRequest",
+    "LoadSellerFail",
+    "getAllProductsShopRequest",
+    "getAllProductsShopSuccess",
+  ], // which reducer want to store
 };
 
 const rootReducers = combineReducers({

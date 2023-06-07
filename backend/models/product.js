@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please enter your product stock!"],
   },
-images: [
+  images: [
     {
       data: {
         type: Buffer,
@@ -39,7 +39,6 @@ images: [
       },
     },
   ],
-
 
   reviews: [
     {
@@ -55,10 +54,10 @@ images: [
       productId: {
         type: String,
       },
-      createdAt:{
+      createdAt: {
         type: Date,
         default: Date.now(),
-      }
+      },
     },
   ],
   ratings: {

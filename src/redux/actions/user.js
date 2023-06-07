@@ -21,18 +21,22 @@ export const loadSeller = () => async (dispatch) => {
     dispatch({
       type: "LoadSellerRequest",
     });
+    // axios.defaults.withCredentials = true;
     const { data } = await axios.get(`${server}/shop/getSeller`, {
       withCredentials: true,
     });
+    console.log({ data });
+
     dispatch({
       type: "LoadSellerSuccess",
       payload: data.seller,
     });
   } catch (error) {
-    dispatch({
-      type: "LoadSellerFail",
-      payload: error.response.data.message,
-    });
+    console.log(error.response);
+    // dispatch({
+    //   type: "LoadSellerFail",
+    //   payload: error.response.data.error,
+    // });
   }
 };
 

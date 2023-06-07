@@ -3,15 +3,25 @@ const app = express();
 const dotenv = require("dotenv");
 const connectToMongo = require("./db");
 const cors = require("cors");
-// const auth = require("./middleware/auth");
-
+var cookies = require("cookie-parser");
+app.use(cookies());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 dotenv.config();
 connectToMongo().then(() => console.log("connected to DB!"));
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+// app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 //routes
 app.use("/api/auth", require("./routes/auth"));
@@ -20,4 +30,3 @@ app.use("/api/shop", require("./routes/shop"));
 app.listen(9000, () => {
   console.log("app is running on port: " + 9000);
 });
-

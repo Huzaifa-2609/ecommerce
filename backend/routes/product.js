@@ -11,7 +11,7 @@ const fs = require("fs");
 
 // create product
 router.post(
-  `https://localhost:9000/api/v2/product/create-product`,
+  `/create-product`,
   upload.array("images"),
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -27,7 +27,6 @@ router.post(
           data: file.buffer,
           contentType: file.mimetype,
         }));
-
 
         const productData = req.body;
         productData.images = imageBuffers;
@@ -51,11 +50,22 @@ router.get(
   "/get-all-products-shop/:id",
   catchAsyncErrors(async (req, res, next) => {
     try {
+      console.log("asdasdasdas");
       const products = await Product.find({ shopId: req.params.id });
+      const newProducts = products.map((pro) => {
+        const newImages = pro.images.map((a) => {
+          const base64Image = a.data.toString("base64");
 
+          return { data: base64Image, contentType: a.contentType };
+        });
+        return {
+          ...pro.toObject(),
+          images: newImages,
+        };
+      });
       res.status(201).json({
         success: true,
-        products,
+        products: newProducts,
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
@@ -106,10 +116,20 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const products = await Product.find().sort({ createdAt: -1 });
+      const newProducts = products.map((pro) => {
+        const newImages = pro.images.map((a) => {
+          const base64Image = a.data.toString("base64");
 
+          return { data: base64Image, contentType: a.contentType };
+        });
+        return {
+          ...pro.toObject(),
+          images: newImages,
+        };
+      });
       res.status(201).json({
         success: true,
-        products,
+        products: newProducts,
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
@@ -174,7 +194,7 @@ router.get(
 //   })
 // );
 
-// // all products --- 
+// // all products ---
 // router.get(
 //   "/admin-all-products",
 //   isAuthenticated,

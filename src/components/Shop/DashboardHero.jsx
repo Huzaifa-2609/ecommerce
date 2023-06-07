@@ -12,16 +12,16 @@ import { DataGrid } from "@material-ui/data-grid";
 const DashboardHero = () => {
   const dispatch = useDispatch();
   // const { orders } = useSelector((state) => state.order);
-  // const { seller } = useSelector((state) => state.seller);
-  // const { products } = useSelector((state) => state.products);
-  const seller = [];
-  const products = [];
+  const { seller } = useSelector((state) => state.seller);
+  const { product } = useSelector((state) => state.products);
+  // const seller = [];
+  // const products = [];
   const orders = [];
 
-  // useEffect(() => {
-  //   dispatch(getAllOrdersOfShop(seller._id));
-  //   dispatch(getAllProductsShop(seller._id));
-  // }, [dispatch]);
+  useEffect(() => {
+    // dispatch(getAllOrdersOfShop(seller._id));
+    dispatch(getAllProductsShop(seller._id));
+  }, [dispatch]);
 
   const availableBalance = seller?.availableBalance.toFixed(2);
 
@@ -144,7 +144,7 @@ const DashboardHero = () => {
             </h3>
           </div>
           <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
-            {products && products.length}
+            {product && product.length}
           </h5>
           <Link to="/dashboard-products">
             <h5 className="pt-4 pl-2 text-[#077f9c]">View Products</h5>

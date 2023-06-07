@@ -18,8 +18,8 @@ import {
 } from "../../../redux/actions/wishlist";
 import { useEffect } from "react";
 import { addTocart } from "../../../redux/actions/cart";
-import { toast } from "react-toastify";
 import Ratings from "../../Products/Ratings";
+import { toast } from "react-hot-toast";
 
 const ProductCard = ({ data, isEvent }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -73,7 +73,10 @@ const ProductCard = ({ data, isEvent }) => {
           }`}
         >
           <img
-            src={`${data.images && data.images[0]}`}
+            src={`${
+              data.images &&
+              `data:${data.images[0].contentType};base64,${data.images[0].data}`
+            }`}
             alt=""
             className="w-full h-[170px] object-contain"
           />

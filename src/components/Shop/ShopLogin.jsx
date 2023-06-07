@@ -6,6 +6,8 @@ import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-hot-toast";
 import Spinner from "../loaders/Spinner";
+import { useDispatch } from "react-redux";
+import { loadSeller } from "../../redux/actions/user";
 // import { toast } from "react-toastify";
 
 const ShopLogin = () => {
@@ -14,18 +16,25 @@ const ShopLogin = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
     await axios
-      .post(`${server}/shop/login-shop`, {
-        email,
-        password,
-      })
+      .post(
+        `${server}/shop/login-shop`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         navigate("/dashboard");
+        console.log(res);
         setLoader(false);
+        // dispatch(loadSeller(res.data.user));
 
         window.location.reload(true);
       })

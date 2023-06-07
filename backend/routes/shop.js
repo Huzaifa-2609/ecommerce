@@ -115,8 +115,12 @@ router.post(
       if (!isPasswordValid) {
         throw Error("Enter correct information");
       }
-
-      sendShopToken(user, 201, res);
+      const base64Image = user.avatar.data.toString("base64");
+      const sellerWithStringifiedImage = {
+        ...user.toObject(),
+        avatar: { data: base64Image, contentType: user.avatar.contentType },
+      };
+      sendShopToken(sellerWithStringifiedImage, 201, res);
     } catch (error) {
       return res.status(400).json({
         error: error.message,
@@ -135,15 +139,23 @@ router.get(
       const seller = await Shop.findById(req.seller._id);
 
       if (!seller) {
-        return next(new ErrorHandler("User doesn't exists", 400));
+        throw new Error("User does not exists");
       }
-
+      const base64Image = seller.avatar.data.toString("base64");
+      const sellerWithStringifiedImage = {
+        ...seller.toObject(),
+        avatar: { data: base64Image, contentType: seller.avatar.contentType },
+      };
       res.status(200).json({
         success: true,
-        seller,
+        seller: sellerWithStringifiedImage,
       });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      console.log(error.message);
+      return res.status(400).json({
+        success: false,
+        error: error.message,
+      });
     }
   })
 );

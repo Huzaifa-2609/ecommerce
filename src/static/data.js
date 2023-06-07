@@ -12,6 +12,7 @@ import { Navigate } from "react-router-dom";
 import ShopLoginPage from "../pages/ShopLoginPage";
 import SellerProtectedRoute from "../routes/SellerProtectedRoute";
 import ShopDashboardPage from "../components/Shop/ShopDashboardPage";
+import ShopAllProducts from "../components/Shop/ShopAllProducts";
 
 // navigation Data
 export const navItems = [
@@ -85,6 +86,14 @@ export const publicRoutes = [
       </SellerProtectedRoute>
     ),
     route: "/dashboard",
+  },
+  {
+    component: (
+      <SellerProtectedRoute>
+        <ShopAllProducts />
+      </SellerProtectedRoute>
+    ),
+    route: "/dashboard-products",
   },
 ];
 export const routes = publicRoutes;
