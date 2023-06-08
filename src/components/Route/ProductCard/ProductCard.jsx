@@ -73,10 +73,7 @@ const ProductCard = ({ data, isEvent }) => {
           }`}
         >
           <img
-            src={`${
-              data.images &&
-              `data:${data.images[0].contentType};base64,${data.images[0].data}`
-            }`}
+            src={data.images && data.images[0]}
             alt=""
             className="w-full h-[170px] object-contain"
           />

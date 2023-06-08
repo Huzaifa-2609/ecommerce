@@ -9,7 +9,7 @@ import Ratings from "../Products/Ratings";
 import { getAllEventsShop } from "../../redux/actions/event";
 
 const ShopProfileData = ({ isOwner }) => {
-  const { products } = useSelector((state) => state.products);
+  const { product } = useSelector((state) => state.products);
   const { events } = useSelector((state) => state.events);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const ShopProfileData = ({ isOwner }) => {
   const [active, setActive] = useState(1);
 
   const allReviews =
-    products && products.map((product) => product.reviews).flat();
+    product && product.map((product) => product.reviews).flat();
 
   return (
     <div className="w-full">
@@ -73,8 +73,8 @@ const ShopProfileData = ({ isOwner }) => {
       <br />
       {active === 1 && (
         <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-          {products &&
-            products.map((i, index) => (
+          {product &&
+            product.map((i, index) => (
               <ProductCard data={i} key={index} isShop={true} />
             ))}
         </div>

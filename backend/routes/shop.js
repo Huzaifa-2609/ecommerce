@@ -11,6 +11,13 @@ const { upload } = require("../multer");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendShopToken = require("../utils/shopToken");
+const { bufferToDataURI, uploadToCloudinary } = require("../cloudinary");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: "dcwahx7wk",
+  api_key: "555991721558452",
+  api_secret: "stQY2RWbot1jM_a0rLEg2YgHVKw",
+});
 
 // create shop
 router.post("/create-shop", upload.single("image"), async (req, res, next) => {
@@ -21,15 +28,15 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
       throw new Error("Shop User already exists");
     }
     const imageBuffer = req.file.buffer;
-    const imageContentType = req.file.mimetype;
+    const fileFormat = req.file.mimetype.split("/")[1];
+    const { base64 } = await bufferToDataURI(fileFormat, imageBuffer);
+    const result = await uploadToCloudinary(base64, fileFormat);
+    // console.log(resu)
     const data = {
       name: req.body.name,
       email: email,
       password: req.body.password,
-      avatar: {
-        data: imageBuffer,
-        contentType: imageContentType,
-      },
+      avatar: result.secure_url,
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
       zipCode: req.body.zipCode,
@@ -115,12 +122,7 @@ router.post(
       if (!isPasswordValid) {
         throw Error("Enter correct information");
       }
-      const base64Image = user.avatar.data.toString("base64");
-      const sellerWithStringifiedImage = {
-        ...user.toObject(),
-        avatar: { data: base64Image, contentType: user.avatar.contentType },
-      };
-      sendShopToken(sellerWithStringifiedImage, 201, res);
+      sendShopToken(user, 201, res);
     } catch (error) {
       return res.status(400).json({
         error: error.message,
@@ -141,14 +143,9 @@ router.get(
       if (!seller) {
         throw new Error("User does not exists");
       }
-      const base64Image = seller.avatar.data.toString("base64");
-      const sellerWithStringifiedImage = {
-        ...seller.toObject(),
-        avatar: { data: base64Image, contentType: seller.avatar.contentType },
-      };
       res.status(200).json({
         success: true,
-        seller: sellerWithStringifiedImage,
+        seller: seller,
       });
     } catch (error) {
       console.log(error.message);

@@ -8,6 +8,13 @@ const Shop = require("../models/shop");
 const { upload } = require("../multer");
 const ErrorHandler = require("../utils/ErrorHandler");
 const fs = require("fs");
+const { uploadToCloudinary, bufferToDataURI } = require("../cloudinary");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: "dcwahx7wk",
+  api_key: "555991721558452",
+  api_secret: "stQY2RWbot1jM_a0rLEg2YgHVKw",
+});
 
 // create product
 router.post(
@@ -22,16 +29,18 @@ router.post(
       } else {
         const files = req.files;
         // const imageUrls = files.map((file) => `${file.filename}`);
-
-        const imageBuffers = files.map((file) => ({
-          data: file.buffer,
-          contentType: file.mimetype,
-        }));
+        const images = files.map(async (file) => {
+          const fileFormat = file.mimetype.split("/")[1];
+          const { base64 } = await bufferToDataURI(fileFormat, file.buffer);
+          const result = await uploadToCloudinary(base64, fileFormat);
+          return result.secure_url;
+        });
 
         const productData = req.body;
-        productData.images = imageBuffers;
+        await Promise.all(images).then(async (data) => {
+          productData.images = data;
+        });
         productData.shop = shop;
-
         const product = await Product.create(productData);
 
         res.status(201).json({
@@ -52,20 +61,9 @@ router.get(
     try {
       console.log("asdasdasdas");
       const products = await Product.find({ shopId: req.params.id });
-      const newProducts = products.map((pro) => {
-        const newImages = pro.images.map((a) => {
-          const base64Image = a.data.toString("base64");
-
-          return { data: base64Image, contentType: a.contentType };
-        });
-        return {
-          ...pro.toObject(),
-          images: newImages,
-        };
-      });
       res.status(201).json({
         success: true,
-        products: newProducts,
+        products,
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
@@ -116,20 +114,9 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const products = await Product.find().sort({ createdAt: -1 });
-      const newProducts = products.map((pro) => {
-        const newImages = pro.images.map((a) => {
-          const base64Image = a.data.toString("base64");
-
-          return { data: base64Image, contentType: a.contentType };
-        });
-        return {
-          ...pro.toObject(),
-          images: newImages,
-        };
-      });
       res.status(201).json({
         success: true,
-        products: newProducts,
+        products: products,
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));

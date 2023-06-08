@@ -15,15 +15,15 @@ import {
   removeFromWishlist,
 } from "../../redux/actions/wishlist";
 import { addTocart } from "../../redux/actions/cart";
-import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { products } = useSelector((state) => state.products);
+  const { product } = useSelector((state) => state.products);
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
@@ -74,21 +74,20 @@ const ProductDetails = ({ data }) => {
   };
 
   const totalReviewsLength =
-    products &&
-    products.reduce((acc, product) => acc + product.reviews.length, 0);
+    product &&
+    product.reduce((acc, product) => acc + product.reviews.length, 0);
 
   const totalRatings =
-    products &&
-    products.reduce(
+    product &&
+    product.reduce(
       (acc, product) =>
         acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
       0
     );
 
-  const avg =  totalRatings / totalReviewsLength || 0;
+  const avg = totalRatings / totalReviewsLength || 0;
 
   const averageRating = avg.toFixed(2);
-
 
   const handleMessageSubmit = async () => {
     if (isAuthenticated) {
@@ -120,7 +119,7 @@ const ProductDetails = ({ data }) => {
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
                 <img
-                  src={`${backend_url}${data && data.images[select]}`}
+                  src={data && data.images[select]}
                   alt=""
                   className="w-[80%]"
                 />
@@ -133,7 +132,7 @@ const ProductDetails = ({ data }) => {
                         } cursor-pointer`}
                       >
                         <img
-                          src={`${backend_url}${i}`}
+                          src={i}
                           alt=""
                           className="h-[200px] overflow-hidden mr-3 mt-3"
                           onClick={() => setSelect(index)}
@@ -208,7 +207,7 @@ const ProductDetails = ({ data }) => {
                 <div className="flex items-center pt-8">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
-                      src={`${backend_url}${data?.shop?.avatar}`}
+                      src={data?.shop?.avatar}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />
@@ -237,7 +236,7 @@ const ProductDetails = ({ data }) => {
           </div>
           <ProductDetailsInfo
             data={data}
-            products={products}
+            products={product}
             totalReviewsLength={totalReviewsLength}
             averageRating={averageRating}
           />
@@ -314,7 +313,7 @@ const ProductDetailsInfo = ({
             data.reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <img
-                  src={`${backend_url}/${item.user.avatar}`}
+                  src={item.user.avatar}
                   alt=""
                   className="w-[50px] h-[50px] rounded-full"
                 />
@@ -342,7 +341,7 @@ const ProductDetailsInfo = ({
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
                 <img
-                  src={`${backend_url}${data?.shop?.avatar}`}
+                  src={data?.shop?.avatar}
                   className="w-[50px] h-[50px] rounded-full"
                   alt=""
                 />

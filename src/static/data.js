@@ -13,6 +13,7 @@ import ShopLoginPage from "../pages/ShopLoginPage";
 import SellerProtectedRoute from "../routes/SellerProtectedRoute";
 import ShopDashboardPage from "../components/Shop/ShopDashboardPage";
 import ShopAllProducts from "../components/Shop/ShopAllProducts";
+import ShopCreateProduct from "../components/Shop/ShopCreateProduct";
 
 // navigation Data
 export const navItems = [
@@ -94,6 +95,14 @@ export const publicRoutes = [
       </SellerProtectedRoute>
     ),
     route: "/dashboard-products",
+  },
+  {
+    route: "/dashboard-create-product",
+    component: (
+      <SellerProtectedRoute>
+        <ShopCreateProduct />
+      </SellerProtectedRoute>
+    ),
   },
 ];
 export const routes = publicRoutes;

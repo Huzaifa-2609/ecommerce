@@ -10,9 +10,12 @@ import { getAllEvents } from "./redux/actions/event";
 import { useEffect } from "react";
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { seller } = useSelector((state) => state.seller);
+  const { allProducts, isLoading } = useSelector((state) => state.products);
 
   useEffect(() => {
     // Store.dispatch(loadUser());
+
     Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
     // Store.dispatch(getAllEvents());
