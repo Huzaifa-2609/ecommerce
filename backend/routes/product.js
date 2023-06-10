@@ -28,18 +28,19 @@ router.post(
         return next(new ErrorHandler("Shop Id is invalid!", 400));
       } else {
         const files = req.files;
+        console.log({ files });
         // const imageUrls = files.map((file) => `${file.filename}`);
-        const images = files.map(async (file) => {
+        const images = [];
+        for (const file of files) {
           const fileFormat = file.mimetype.split("/")[1];
           const { base64 } = await bufferToDataURI(fileFormat, file.buffer);
           const result = await uploadToCloudinary(base64, fileFormat);
-          return result.secure_url;
-        });
+          console.log(result.secure_url);
+          images.push(result.secure_url);
+        }
 
         const productData = req.body;
-        await Promise.all(images).then(async (data) => {
-          productData.images = data;
-        });
+        productData.images = images;
         productData.shop = shop;
         const product = await Product.create(productData);
 
@@ -49,7 +50,10 @@ router.post(
         });
       }
     } catch (error) {
-      return next(new ErrorHandler(error, 400));
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   })
 );
@@ -59,14 +63,16 @@ router.get(
   "/get-all-products-shop/:id",
   catchAsyncErrors(async (req, res, next) => {
     try {
-      console.log("asdasdasdas");
       const products = await Product.find({ shopId: req.params.id });
       res.status(201).json({
         success: true,
         products,
       });
     } catch (error) {
-      return next(new ErrorHandler(error, 400));
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   })
 );
@@ -103,7 +109,10 @@ router.delete(
         message: "Product Deleted successfully!",
       });
     } catch (error) {
-      return next(new ErrorHandler(error, 400));
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   })
 );
@@ -119,7 +128,10 @@ router.get(
         products: products,
       });
     } catch (error) {
-      return next(new ErrorHandler(error, 400));
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   })
 );

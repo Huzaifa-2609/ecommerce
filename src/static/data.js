@@ -14,6 +14,7 @@ import SellerProtectedRoute from "../routes/SellerProtectedRoute";
 import ShopDashboardPage from "../components/Shop/ShopDashboardPage";
 import ShopAllProducts from "../components/Shop/ShopAllProducts";
 import ShopCreateProduct from "../components/Shop/ShopCreateProduct";
+import ShopHomePage from "../components/Shop/ShopHomePage";
 
 // navigation Data
 export const navItems = [
@@ -101,6 +102,14 @@ export const publicRoutes = [
     component: (
       <SellerProtectedRoute>
         <ShopCreateProduct />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/shop/:id",
+    component: (
+      <SellerProtectedRoute>
+        <ShopHomePage />
       </SellerProtectedRoute>
     ),
   },

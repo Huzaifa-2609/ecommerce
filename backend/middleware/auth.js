@@ -28,10 +28,16 @@ exports.isSeller = catchAsyncErrors(async (req, res, next) => {
       message: "Please Login to continue",
     });
   }
-
-  const decoded = jwt.verify(seller_token, process.env.JWT_SECRET_KEY);
-
-  req.seller = await Shop.findById(decoded.id);
+  try {
+    const decoded = jwt.verify(seller_token, process.env.JWT_SECRET_KEY);
+    req.seller = await Shop.findById(decoded.id);
+  } catch (error) {
+    if (error.name === "TokenExpiredError")
+      return res.status(401).json({
+        success: false,
+        message: "Your session has expired",
+      });
+  }
 
   next();
 });

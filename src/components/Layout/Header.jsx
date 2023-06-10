@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../styles/styles";
 import { categoriesData, productData } from "../../static/data";
@@ -33,6 +33,7 @@ const Header = ({ activeHeading }) => {
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const searchRef = useRef(null);
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -42,9 +43,22 @@ const Header = ({ activeHeading }) => {
       allProducts.filter((product) =>
         product.name.toLowerCase().includes(term.toLowerCase())
       );
-    setSearchData(filteredProducts);
+    setSearchData(
+      filteredProducts?.length > 7
+        ? filteredProducts?.slice(7)
+        : filteredProducts
+    );
   };
 
+  useEffect(() => {
+    // Add event listener to the document when the component mounts
+    document.addEventListener("click", handleClickOutside);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 70) {
       setActive(true);
@@ -53,6 +67,14 @@ const Header = ({ activeHeading }) => {
     }
   });
 
+  const handleClickOutside = (e) => {
+    // Check if the click occurred outside of the search div
+    if (searchRef.current && !searchRef.current.contains(e.target)) {
+      console.log("asdasdasd");
+      // Click occurred outside, hide the search results
+      setSearchData([]);
+    }
+  };
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -67,7 +89,7 @@ const Header = ({ activeHeading }) => {
             </Link>
           </div>
           {/* search box */}
-          <div className="w-[50%] relative">
+          <div className="w-[50%] relative" ref={searchRef}>
             <input
               type="text"
               placeholder="Search Product..."
@@ -80,12 +102,12 @@ const Header = ({ activeHeading }) => {
               className="absolute right-2 top-1.5 cursor-pointer"
             />
             {searchData && searchData.length !== 0 ? (
-              <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
+              <div className="absolute w-full   flex flex-col gap-3 rounded-e-sm bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&
                   searchData.map((i, index) => {
                     return (
                       <Link to={`/product/${i._id}`}>
-                        <div className="w-full flex items-start-py-3">
+                        <div className="w-full py-2 px-1 flex items-start-py-3 hover:bg-[#e3e1e1]">
                           <img
                             src={i.images[0]}
                             alt=""
@@ -313,17 +335,18 @@ const Header = ({ activeHeading }) => {
                   placeholder="Search Product..."
                   className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
                   value={searchTerm}
+                  onBlur={() => setSearchData([])}
                   onChange={handleSearchChange}
                 />
                 {searchData && (
-                  <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
+                  <div className="absolute  bg-[#fff] z-10 shadow w-full left-0 p-3">
                     {searchData.map((i) => {
                       const d = i.name;
 
                       const Product_name = d.replace(/\s+/g, "-");
                       return (
                         <Link to={`/product/${Product_name}`}>
-                          <div className="flex items-center">
+                          <div className="flex hover:bg-[#bebcbc] items-center">
                             <img
                               src={i.image_Url[0].url}
                               alt=""

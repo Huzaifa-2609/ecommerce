@@ -23,6 +23,7 @@ const persistConfig = {
     "getAllProductsRequest",
     "getAllProductsSuccess",
     "getAllProductsFailed",
+    "products",
   ], // which reducer want to store
 };
 

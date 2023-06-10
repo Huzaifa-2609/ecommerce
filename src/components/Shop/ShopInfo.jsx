@@ -22,6 +22,7 @@ const ShopInfo = ({ isOwner }) => {
       .then((res) => {
         setData(res.data.shop);
         setIsLoading(false);
+        console.log(res.data.shop);
       })
       .catch((error) => {
         console.log(error);
@@ -59,7 +60,7 @@ const ShopInfo = ({ isOwner }) => {
           <div className="w-full py-5">
             <div className="w-full flex item-center justify-center">
               <img
-                src={`${backend_url}${data.avatar}`}
+                src={data.avatar}
                 alt=""
                 className="w-[150px] h-[150px] object-cover rounded-full"
               />
@@ -79,7 +80,7 @@ const ShopInfo = ({ isOwner }) => {
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Total Products</h5>
-            <h4 className="text-[#000000a6]">{products && products.length}</h4>
+            <h4 className="text-[#000000a6]">{product && product.length}</h4>
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Shop Ratings</h5>

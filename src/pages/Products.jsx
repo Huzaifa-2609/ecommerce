@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../components/Layout/Footer";
@@ -13,7 +13,7 @@ const ProductsPage = () => {
   const { allProducts, isLoading } = useSelector((state) => state.products);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (categoryData === null) {
       const d = allProducts;
       setData(d);
