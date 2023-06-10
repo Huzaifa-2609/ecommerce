@@ -63,8 +63,8 @@ const ProductCard = ({ data, isEvent }) => {
 
   return (
     <>
-      <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer">
-        <div className="flex justify-end"></div>
+      <div className="w-[full] h-[370px] bg-black rounded-lg shadow-sm p-3 relative cursor-pointer flex">
+        <div className="w-11/12">
         <Link
           to={`${
             isEvent === true
@@ -72,11 +72,14 @@ const ProductCard = ({ data, isEvent }) => {
               : `/product/${data._id}`
           }`}
         >
-          <img
+          <div className="flex justify-center items-center">
+            <img
             src={data.images && data.images[0]}
             alt=""
-            className="w-full h-[170px] object-contain"
+            className="w-200 h-[170px] object-contain"
           />
+          </div>
+          
         </Link>
         <Link to={`/shop/preview/${data?.shop._id}`}>
           <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
@@ -113,15 +116,18 @@ const ProductCard = ({ data, isEvent }) => {
             </span>
           </div>
         </Link>
+        </div>
+        
 
         {/* side options */}
-        <div>
+        <div className="w-1/12">
           {click ? (
             <AiFillHeart
               size={22}
               className="cursor-pointer absolute right-2 top-5"
               onClick={() => removeFromWishlistHandler(data)}
-              color={click ? "red" : "#333"}
+              color={click ? "red" : "white"}
+              
               title="Remove from wishlist"
             />
           ) : (
@@ -129,7 +135,7 @@ const ProductCard = ({ data, isEvent }) => {
               size={22}
               className="cursor-pointer absolute right-2 top-5"
               onClick={() => addToWishlistHandler(data)}
-              color={click ? "red" : "#333"}
+              color={click ? "red" : "white"}
               title="Add to wishlist"
             />
           )}
@@ -137,14 +143,14 @@ const ProductCard = ({ data, isEvent }) => {
             size={22}
             className="cursor-pointer absolute right-2 top-14"
             onClick={() => setOpen(!open)}
-            color="#333"
+            color="white"
             title="Quick view"
           />
           <AiOutlineShoppingCart
             size={25}
             className="cursor-pointer absolute right-2 top-24"
             onClick={() => addToCartHandler(data._id)}
-            color="#444"
+            color="white"
             title="Add to cart"
           />
           {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
