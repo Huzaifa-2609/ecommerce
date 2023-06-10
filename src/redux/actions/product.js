@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../../server";
+import { toast } from "react-hot-toast";
 
 // create product
 export const createProduct = (newForm) => async (dispatch) => {
@@ -19,11 +20,13 @@ export const createProduct = (newForm) => async (dispatch) => {
       type: "productCreateSuccess",
       payload: data.product,
     });
+    toast.success("Your product has been created successfully");
   } catch (error) {
     dispatch({
       type: "productCreateFail",
       payload: error.response.data.message,
     });
+    toast.error(error.response.data.message);
   }
 };
 

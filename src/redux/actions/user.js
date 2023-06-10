@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../../server";
+import { toast } from "react-hot-toast";
 
 // load user
 export const loadUser = (data) => (dispatch) => {
@@ -32,11 +33,14 @@ export const loadSeller = () => async (dispatch) => {
       payload: data.seller,
     });
   } catch (error) {
+    dispatch({
+      type: "LoadSellerFail",
+      payload: error.response.data.message,
+    });
     console.log(error.response);
-    // dispatch({
-    //   type: "LoadSellerFail",
-    //   payload: error.response.data.error,
-    // });
+    if (error.status === 401) {
+      toast.error("Your session has expired. Login to continue");
+    }
   }
 };
 

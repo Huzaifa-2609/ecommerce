@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../redux/actions/product";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-hot-toast";
+import Spinner from "../loaders/Spinner";
 // import { toast } from "react-toastify";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
-  const { success, error } = useSelector((state) => state.products);
+  const { success, error, isLoading } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,9 +28,7 @@ const CreateProduct = () => {
       toast.error(error);
     }
     if (success) {
-      toast.success("Product created successfully!");
       navigate("/dashboard");
-      window.location.reload();
     }
   }, [dispatch, error, success]);
 
@@ -197,11 +196,16 @@ const CreateProduct = () => {
           </div>
           <br />
           <div>
-            <input
+            <button
               type="submit"
-              value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
+              className="mt-2 items-center cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            >
+              {isLoading ? (
+                <Spinner color="black" size={8} loading={true} />
+              ) : (
+                "Create"
+              )}
+            </button>
           </div>
         </div>
       </form>
