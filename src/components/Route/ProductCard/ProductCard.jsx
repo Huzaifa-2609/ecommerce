@@ -64,7 +64,7 @@ const ProductCard = ({ data, isEvent }) => {
   return (
     <>
       <div className="w-[full] h-[370px] bg-black rounded-lg shadow-sm p-3 relative cursor-pointer flex">
-        <div className="w-11/12">
+        <div className="w-10/12">
         <Link
           to={`${
             isEvent === true
@@ -120,7 +120,7 @@ const ProductCard = ({ data, isEvent }) => {
         
 
         {/* side options */}
-        <div className="w-1/12">
+        <div className="w-2/12">
           {click ? (
             <AiFillHeart
               size={22}

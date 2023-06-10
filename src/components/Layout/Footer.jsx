@@ -107,14 +107,14 @@ const Footer = () => {
       </div>
 
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10
-         text-center pt-2 text-gray-400 text-sm pb-8"
+        className="flex flex-row items-center justify-evenly pb-8 mt-0"
       >
-        <span>© 2020 Becodemy. All rights reserved.</span>
-        <span>Terms · Privacy Policy</span>
-        <div className="sm:block flex items-center justify-center w-full">
-          <img src="/logo.png" alt="" />
-        </div>
+        
+        {/* <div className="w-full flex flex-row items-center justify-evenly"> */}
+          {/* <img src="/logo.png" alt="" /> */}
+          <div><span>© 2020 Becodemy. All rights reserved.</span></div>
+          <div><span>Terms · Privacy Policy</span></div>
+        {/* </div> */}
       </div>
     </div>
   );

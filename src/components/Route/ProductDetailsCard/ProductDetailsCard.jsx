@@ -70,6 +70,8 @@ const ProductDetailsCard = ({ setOpen, data }) => {
     dispatch(addToWishlist(data));
   };
 
+  console.log(data);
+
   return (
     <div className="bg-[#fff]">
       {data ? (
@@ -83,7 +85,33 @@ const ProductDetailsCard = ({ setOpen, data }) => {
 
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
-                <img src={data.images && data.images[0]} alt="" />
+                <div className="w-full flex flex-row">
+                  <div className="w-1/4">
+                    <img
+                      src={data.images && data.images[0]}
+                      alt=""
+                      className="w-[300px] h-[300px]"
+                    />
+                  </div>
+                  <div className="flex flex-col w-3/4">
+                    <div className="flex items-start ml-5">
+                      <h1 className={`${styles.productTitle} text-[59px]`}>
+                        {data.name}
+                      </h1>
+                    </div>
+                    <div className="desc ml-5">
+                      {/* <p>{data.description}</p> */}
+                      <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Similique, nisi quae, illum recusandae omnis nemo
+                        aut at dolorem possimus dolor inventore expedita
+                        distinctio labore delectus sequi dolores corporis minus
+                        enim! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam saepe sunt fugit. Dolorum nam voluptatem, maxime corrupti perferendis numquam cum ea repellat, reiciendis ad quis minima sit adipisci quidem? Ab tenetur cum possimus ratione similique nam dolores impedit? Non ipsam reprehenderit nobis provident. Reiciendis, unde itaque! Optio, molestiae delectus! Illo ad libero odit ratione pariatur soluta tenetur molestias dolorem! Odit, pariatur. Id impedit, magnam dignissimos consectetur cupiditate laboriosam ipsam numquam quo sunt rerum repellat commodi doloremque suscipit recusandae, minus quibusdam iusto aut itaque molestiae totam quaerat rem. Voluptate, quaerat eaque. Veritatis cumque sunt incidunt eos, minima suscipit voluptas modi similique!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex">
                   <Link to={`/shop/preview/${data.shop._id}`} className="flex">
                     <img
@@ -107,14 +135,10 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                     Send Message <AiOutlineMessage className="ml-1" />
                   </span>
                 </div>
-                <h5 className="text-[16px] text-[red] mt-5">(50) Sold out</h5>
+                {/* <h5 className="text-[16px] text-[red] mt-5">(50) Sold out</h5> */}
               </div>
 
               <div className="w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px]">
-                <h1 className={`${styles.productTitle} text-[20px]`}>
-                  {data.name}
-                </h1>
-                <p>{data.description}</p>
 
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
