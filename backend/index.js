@@ -26,6 +26,8 @@ app.use(
 //routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/product", require("./routes/product"));
+app.use("/api/product", require("./routes/order"));
+
 app.use("/api/shop", require("./routes/shop"));
 app.listen(9000, () => {
   console.log("app is running on port: " + 9000);
