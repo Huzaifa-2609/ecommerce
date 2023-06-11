@@ -15,6 +15,15 @@ import ShopDashboardPage from "../components/Shop/ShopDashboardPage";
 import ShopAllProducts from "../components/Shop/ShopAllProducts";
 import ShopCreateProduct from "../components/Shop/ShopCreateProduct";
 import ShopHomePage from "../components/Shop/ShopHomePage";
+import ShopAllOrders  from "../pages/Shop/ShopAllOrders";
+import ShopAllEvents from "../pages/Shop/ShopAllEvents";
+import ShopCreateEvents from "../pages/Shop/ShopCreateEvents";
+import ShopWithDrawMoneyPage from "../pages/Shop/ShopWithDrawMoneyPage";
+import ShopAllCoupouns from "../pages/Shop/ShopAllCoupouns";
+import ShopAllRefunds from "../pages/Shop/ShopAllRefunds";
+import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
+import CheckoutPage from "../pages/CheckoutPage";
+import ProtectedRoute from "../routes/ProtectedRoute"
 
 // navigation Data
 export const navItems = [
@@ -82,6 +91,14 @@ export const publicRoutes = [
     route: "/shop-login",
   },
   {
+    route: "/checkout",
+    component: (
+            <ProtectedRoute>
+            <CheckoutPage />
+            </ProtectedRoute>
+    )
+  },
+  {
     component: (
       <SellerProtectedRoute>
         <ShopDashboardPage />
@@ -102,6 +119,62 @@ export const publicRoutes = [
     component: (
       <SellerProtectedRoute>
         <ShopCreateProduct />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-orders",
+    component: (
+      <SellerProtectedRoute>
+        <ShopAllOrders />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-events",
+    component: (
+      <SellerProtectedRoute>
+        <ShopAllEvents />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-create-event",
+    component: (
+      <SellerProtectedRoute>
+        <ShopCreateEvents />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-withdraw-money",
+    component: (
+      <SellerProtectedRoute>
+        <ShopWithDrawMoneyPage />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-coupouns",
+    component: (
+      <SellerProtectedRoute>
+        <ShopAllCoupouns />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/dashboard-refunds",
+    component: (
+      <SellerProtectedRoute>
+        <ShopAllRefunds />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/settings",
+    component: (
+      <SellerProtectedRoute>
+        <ShopSettingsPage />
       </SellerProtectedRoute>
     ),
   },
