@@ -100,14 +100,14 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                       </h1>
                     </div>
                     <div className="desc ml-5">
-                      {/* <p>{data.description}</p> */}
-                      <p>
+                      <p>{data.description}</p>
+                      {/* <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing
                         elit. Similique, nisi quae, illum recusandae omnis nemo
                         aut at dolorem possimus dolor inventore expedita
                         distinctio labore delectus sequi dolores corporis minus
                         enim! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam saepe sunt fugit. Dolorum nam voluptatem, maxime corrupti perferendis numquam cum ea repellat, reiciendis ad quis minima sit adipisci quidem? Ab tenetur cum possimus ratione similique nam dolores impedit? Non ipsam reprehenderit nobis provident. Reiciendis, unde itaque! Optio, molestiae delectus! Illo ad libero odit ratione pariatur soluta tenetur molestias dolorem! Odit, pariatur. Id impedit, magnam dignissimos consectetur cupiditate laboriosam ipsam numquam quo sunt rerum repellat commodi doloremque suscipit recusandae, minus quibusdam iusto aut itaque molestiae totam quaerat rem. Voluptate, quaerat eaque. Veritatis cumque sunt incidunt eos, minima suscipit voluptas modi similique!
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>
@@ -139,7 +139,6 @@ const ProductDetailsCard = ({ setOpen, data }) => {
               </div>
 
               <div className="w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px]">
-
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
                     {data.discountPrice}$

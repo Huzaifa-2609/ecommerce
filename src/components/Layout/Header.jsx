@@ -197,7 +197,7 @@ const Header = ({ activeHeading }) => {
 
             {/* <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px]"> */}
-            {isAuthenticated ? (
+            {isAuthenticated && user ? (
               <div class="relative inline-block text-left">
                 <div>
                   <button
@@ -215,9 +215,9 @@ const Header = ({ activeHeading }) => {
                     }
                   >
                     {(
-                      user?.firstName.split("")[0] +
-                      user?.firstName.split("")[0]
-                    ).toUpperCase()}
+                      user?.firstName?.split("")[0] +
+                      user?.firstName?.split("")[0]
+                    )?.toUpperCase()}
                   </button>
                 </div>
 

@@ -27,6 +27,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please enter your product stock!"],
   },
+  stripeProduct: {
+    id: String,
+    priceId: String,
+  },
   images: [
     {
       type: String,

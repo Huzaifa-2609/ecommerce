@@ -7,8 +7,8 @@ const Product = require("../models/product");
 const Shop = require("../models/shop");
 const { upload } = require("../multer");
 const ErrorHandler = require("../utils/ErrorHandler");
-const fs = require("fs");
 const { uploadToCloudinary, bufferToDataURI } = require("../cloudinary");
+const { createStripeProduct } = require("../stripe/functions");
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "dcwahx7wk",
@@ -38,10 +38,11 @@ router.post(
           console.log(result.secure_url);
           images.push(result.secure_url);
         }
-
         const productData = req.body;
         productData.images = images;
         productData.shop = shop;
+        const stripeProduct = await createStripeProduct(productData);
+        productData.stripeProduct = stripeProduct;
         const product = await Product.create(productData);
 
         res.status(201).json({

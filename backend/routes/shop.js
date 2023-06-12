@@ -12,6 +12,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendShopToken = require("../utils/shopToken");
 const { bufferToDataURI, uploadToCloudinary } = require("../cloudinary");
+const { createSellerAccount, getLink } = require("../stripe/functions");
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "dcwahx7wk",
@@ -31,6 +32,7 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
     const fileFormat = req.file.mimetype.split("/")[1];
     const { base64 } = await bufferToDataURI(fileFormat, imageBuffer);
     const result = await uploadToCloudinary(base64, fileFormat);
+    const stripeAccountId = await createSellerAccount(email);
     // console.log(resu)
     const data = {
       name: req.body.name,
@@ -40,6 +42,7 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
       zipCode: req.body.zipCode,
+      stripeAccountId,
     };
     const seller = await Shop.create(data);
 
@@ -52,6 +55,11 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
   }
 });
 
+router.get("/authorize", async (req, res) => {
+  console.log(req.body);
+  const link = await getLink(req.body.id);
+  res.status(200).json({ link });
+});
 // create activation token
 const createActivationToken = (seller) => {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {

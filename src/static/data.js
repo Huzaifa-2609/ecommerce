@@ -15,7 +15,7 @@ import ShopDashboardPage from "../components/Shop/ShopDashboardPage";
 import ShopAllProducts from "../components/Shop/ShopAllProducts";
 import ShopCreateProduct from "../components/Shop/ShopCreateProduct";
 import ShopHomePage from "../components/Shop/ShopHomePage";
-import ShopAllOrders  from "../pages/Shop/ShopAllOrders";
+import ShopAllOrders from "../pages/Shop/ShopAllOrders";
 import ShopAllEvents from "../pages/Shop/ShopAllEvents";
 import ShopCreateEvents from "../pages/Shop/ShopCreateEvents";
 import ShopWithDrawMoneyPage from "../pages/Shop/ShopWithDrawMoneyPage";
@@ -23,7 +23,8 @@ import ShopAllCoupouns from "../pages/Shop/ShopAllCoupouns";
 import ShopAllRefunds from "../pages/Shop/ShopAllRefunds";
 import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
 import CheckoutPage from "../pages/CheckoutPage";
-import ProtectedRoute from "../routes/ProtectedRoute"
+import ProtectedRoute from "../routes/ProtectedRoute";
+import PaymentPage from "../pages/PaymentPage";
 
 // navigation Data
 export const navItems = [
@@ -93,10 +94,10 @@ export const publicRoutes = [
   {
     route: "/checkout",
     component: (
-            <ProtectedRoute>
-            <CheckoutPage />
-            </ProtectedRoute>
-    )
+      <ProtectedRoute>
+        <CheckoutPage />
+      </ProtectedRoute>
+    ),
   },
   {
     component: (
@@ -106,6 +107,7 @@ export const publicRoutes = [
     ),
     route: "/dashboard",
   },
+
   {
     component: (
       <SellerProtectedRoute>

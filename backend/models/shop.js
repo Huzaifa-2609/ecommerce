@@ -46,6 +46,9 @@ const shopSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  stripeAccountId: {
+    type: String,
+  },
   transections: [
     {
       amount: {
