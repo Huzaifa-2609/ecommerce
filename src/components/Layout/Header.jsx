@@ -70,7 +70,7 @@ const Header = ({ activeHeading }) => {
   const handleClickOutside = (e) => {
     // Check if the click occurred outside of the search div
     if (searchRef.current && !searchRef.current.contains(e.target)) {
-      console.log("asdasdasd");
+      // console.log("asdasdasd");
       // Click occurred outside, hide the search results
       setSearchData([]);
     }
@@ -281,7 +281,6 @@ const Header = ({ activeHeading }) => {
               onClick={() => setOpen(true)}
             />
           </div>
-          asdasd
           <div>
             <Link to="/">
               <img src="/logo.png" alt="" className="mt-3 cursor-pointer" />
