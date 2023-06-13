@@ -28,7 +28,7 @@ const CreateProduct = () => {
       toast.error(error);
     }
     if (success) {
-      navigate("/dashboard");
+      window.location.href = "http://localhost:3000/dashboard";
     }
   }, [dispatch, error, success]);
 

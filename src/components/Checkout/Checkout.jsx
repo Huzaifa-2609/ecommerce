@@ -26,7 +26,7 @@ const Checkout = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const paymentSubmit = () => {
+  const paymentSubmit = async () => {
     if (
       address1 === "" ||
       address2 === "" ||
@@ -53,10 +53,21 @@ const Checkout = () => {
         shippingAddress,
         user,
       };
+      try {
+        const { data } = await axios.post(`${server}/payment/checkout`, {
+          products: cart,
+        });
+        console.log({ data });
+        localStorage.setItem("latestOrder", JSON.stringify(orderData));
 
+        if (data?.link) {
+          window.location.href = data.link;
+        }
+      } catch (error) {
+        console.log(error);
+      }
       // update local storage with the updated orders array
-      localStorage.setItem("latestOrder", JSON.stringify(orderData));
-      navigate("/payment");
+      // navigate("/payment");
     }
   };
 

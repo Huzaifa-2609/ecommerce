@@ -31,7 +31,7 @@ router.get(
   })
 );
 
-router.get("/checkout", async (req, res) => {
+router.post("/checkout", async (req, res) => {
   try {
     const { products } = req.body;
     let cart = [];
