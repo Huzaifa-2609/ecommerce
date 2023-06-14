@@ -84,15 +84,23 @@ const updateStripeProduct = async (product) => {
 
 const getCheckoutLink = async (items) => {
   const session = await stripe.checkout.sessions.create({
-    success_url: "http://localhost:3000/success",
+    success_url:
+      "http://localhost:3000/success?success=true&session_id={CHECKOUT_SESSION_ID}",
     line_items: items,
     mode: "payment",
+    payment_method_types: ["card"],
     cancel_url: "http://localhost:3000/payment",
   });
   return session.url;
 };
 
+const retrieveSession = async (session_id) => {
+  const session = await stripe.checkout.sessions.retrieve(session_id);
+  return session;
+};
+
 module.exports = {
+  retrieveSession,
   getCheckoutLink,
   updateStripeProduct,
   createProduct,

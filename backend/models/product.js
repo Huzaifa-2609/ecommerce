@@ -31,6 +31,7 @@ const productSchema = new mongoose.Schema({
     id: String,
     priceId: String,
   },
+  minimum: Number,
   images: [
     {
       type: String,

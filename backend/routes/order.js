@@ -6,6 +6,24 @@ const { isAuthenticated, isSeller, isAdmin } = require("../middleware/auth");
 const Order = require("../models/order");
 const Shop = require("../models/shop");
 const Product = require("../models/product");
+const { retrieveSession } = require("../stripe/functions");
+
+router.get("/success", async (req, res) => {
+  try {
+    const session = await retrieveSession(req.query.session_id);
+    if (!session) throw Error("Order can not be placed");
+    return res.status(200).json({
+      success: true,
+      message: "Your order has been placed",
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      success: true,
+      message: error.message,
+    });
+  }
+});
 
 // create new order
 router.post(
@@ -111,7 +129,7 @@ router.put(
       if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
         order.paymentInfo.status = "Succeeded";
-        const serviceCharge = order.totalPrice * .10;
+        const serviceCharge = order.totalPrice * 0.1;
         await updateSellerInfo(order.totalPrice - serviceCharge);
       }
 
@@ -133,7 +151,7 @@ router.put(
 
       async function updateSellerInfo(amount) {
         const seller = await Shop.findById(req.seller.id);
-        
+
         seller.availableBalance = amount;
 
         await seller.save();

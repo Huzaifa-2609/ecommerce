@@ -112,8 +112,8 @@ const ProductCard = ({ data, isEvent }) => {
                   {data.originalPrice ? data.originalPrice + " $" : null}
                 </h4>
               </div>
-              <span className="font-[400] text-[17px] text-[#68d284]">
-                {data?.sold_out} sold
+              <span className="font-[400] ml-1 text-[14px] text-[#68d284]">
+                {data?.minimum} min
               </span>
             </div>
           </Link>

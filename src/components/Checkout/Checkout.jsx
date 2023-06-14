@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import Spinner from "../loaders/Spinner";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ const Checkout = () => {
   const [couponCode, setCouponCode] = useState("");
   const [couponCodeData, setCouponCodeData] = useState(null);
   const [discountPrice, setDiscountPrice] = useState(null);
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = async () => {
+    setLoader(true);
     if (
       address1 === "" ||
       address2 === "" ||
@@ -60,14 +63,14 @@ const Checkout = () => {
         console.log({ data });
         localStorage.setItem("latestOrder", JSON.stringify(orderData));
 
+        setLoader(false);
         if (data?.link) {
           window.location.href = data.link;
         }
       } catch (error) {
+        setLoader(false);
         console.log(error);
       }
-      // update local storage with the updated orders array
-      // navigate("/payment");
     }
   };
 
@@ -155,7 +158,13 @@ const Checkout = () => {
         className={`${styles.button} w-[150px] 800px:w-[280px] mt-10`}
         onClick={paymentSubmit}
       >
-        <h5 className="text-white">Go to Payment</h5>
+        <h5 className="text-white">
+          {loader ? (
+            <Spinner color="#ffff" size={8} loading={true} />
+          ) : (
+            "Go to payment"
+          )}
+        </h5>
       </div>
     </div>
   );

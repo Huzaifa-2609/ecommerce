@@ -22,6 +22,7 @@ const CreateProduct = () => {
   const [originalPrice, setOriginalPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
   const [stock, setStock] = useState();
+  const [minimum, setMinimum] = useState();
 
   useEffect(() => {
     if (error) {
@@ -56,6 +57,7 @@ const CreateProduct = () => {
     newForm.append("originalPrice", originalPrice);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
+    newForm.append("minimum", minimum);
     newForm.append("shopId", seller._id);
     dispatch(createProduct(newForm));
   };
@@ -73,6 +75,7 @@ const CreateProduct = () => {
           <input
             type="text"
             name="name"
+            required
             value={name}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setName(e.target.value)}
@@ -120,6 +123,7 @@ const CreateProduct = () => {
           <label className="pb-2">Tags</label>
           <input
             type="text"
+            required
             name="tags"
             value={tags}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -133,6 +137,7 @@ const CreateProduct = () => {
           <input
             type="number"
             name="price"
+            required
             value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setOriginalPrice(e.target.value)}
@@ -147,6 +152,7 @@ const CreateProduct = () => {
           <input
             type="number"
             name="price"
+            required
             value={discountPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setDiscountPrice(e.target.value)}
@@ -161,9 +167,26 @@ const CreateProduct = () => {
           <input
             type="number"
             name="price"
+            required
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setStock(e.target.value)}
+            placeholder="Enter your product stock..."
+          />
+        </div>
+        <div>
+          <br />
+
+          <label className="pb-2">
+            Minimum Quantity <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="number"
+            name="minimum"
+            required
+            value={minimum}
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={(e) => setMinimum(e.target.value)}
             placeholder="Enter your product stock..."
           />
         </div>
@@ -177,6 +200,7 @@ const CreateProduct = () => {
             name=""
             id="upload"
             className="hidden"
+            required
             multiple
             onChange={handleImageChange}
           />

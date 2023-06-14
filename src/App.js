@@ -12,7 +12,7 @@ function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    Store.dispatch(loadUser());
+    // Store.dispatch(loadUser());
 
     Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
@@ -26,7 +26,7 @@ function App() {
           {routes.map((item) => (
             <Route path={item.route} element={item.component} />
           ))}
-          {!isAuthenticated &&
+          {(!isAuthenticated || !user) &&
             authRoutes.map((item) => {
               return <Route path={item.route} element={item.component} />;
             })}

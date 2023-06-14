@@ -4,9 +4,9 @@ import Loader from "../components/Layout/Loader";
 import { toast } from "react-hot-toast";
 
 const ProtectedRoute = ({ children }) => {
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
+  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   if (loading) return <Loader />;
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !user) {
     toast("Login to continue");
     return <Navigate to="/login" replace />;
   }

@@ -25,6 +25,9 @@ import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ProtectedRoute from "../routes/ProtectedRoute";
 import PaymentPage from "../pages/PaymentPage";
+import OrderSuccessPage from "../pages/OrderSuccessPage";
+import SuccessProtected from "../routes/SuccessProtected";
+import ShopOrderDetails from "../pages/Shop/ShopOrderDetails";
 
 // navigation Data
 export const navItems = [
@@ -185,6 +188,22 @@ export const publicRoutes = [
     component: (
       <SellerProtectedRoute>
         <ShopHomePage />
+      </SellerProtectedRoute>
+    ),
+  },
+  {
+    route: "/success",
+    component: (
+      <SuccessProtected>
+        <OrderSuccessPage />,
+      </SuccessProtected>
+    ),
+  },
+  {
+    route: "/order/:id",
+    component: (
+      <SellerProtectedRoute>
+        <ShopOrderDetails />
       </SellerProtectedRoute>
     ),
   },

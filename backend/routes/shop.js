@@ -32,7 +32,6 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
     const fileFormat = req.file.mimetype.split("/")[1];
     const { base64 } = await bufferToDataURI(fileFormat, imageBuffer);
     const result = await uploadToCloudinary(base64, fileFormat);
-    const stripeAccountId = await createSellerAccount(email);
     // console.log(resu)
     const data = {
       name: req.body.name,
@@ -42,7 +41,6 @@ router.post("/create-shop", upload.single("image"), async (req, res, next) => {
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
       zipCode: req.body.zipCode,
-      stripeAccountId,
     };
     const seller = await Shop.create(data);
 

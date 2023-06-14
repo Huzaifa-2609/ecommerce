@@ -24,7 +24,7 @@ const ProductDetails = ({ data }) => {
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const { product } = useSelector((state) => state.products);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(product?.minimum || 1);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
@@ -39,12 +39,12 @@ const ProductDetails = ({ data }) => {
   }, [data, wishlist]);
 
   const incrementCount = () => {
-    setCount(count + 1);
+    setCount(parseInt(count) + 1);
   };
 
   const decrementCount = () => {
-    if (count > 1) {
-      setCount(count - 1);
+    if (product?.minimum ? count > product?.minimum : count > 1) {
+      setCount(parseInt(count) - 1);
     }
   };
 
@@ -56,6 +56,12 @@ const ProductDetails = ({ data }) => {
   const addToWishlistHandler = (data) => {
     setClick(!click);
     dispatch(addToWishlist(data));
+  };
+
+  const handleInputChange = (e) => {
+    const minValue = 0;
+    const newValue = Math.max(product?.minimum || 1, e.target.value);
+    setCount(newValue);
   };
 
   const addToCartHandler = (id) => {
@@ -166,9 +172,14 @@ const ProductDetails = ({ data }) => {
                     >
                       -
                     </button>
-                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[11px]">
-                      {count}
-                    </span>
+                    <input
+                      value={count}
+                      type="number"
+                      className="bg-gray-200 w-[5rem] text-gray-800 font-medium px-4 py-[11px]"
+                      onChange={handleInputChange}
+                    />
+                    {/* {count}
+                    </input> */}
                     <button
                       className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={incrementCount}
