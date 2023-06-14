@@ -25,6 +25,8 @@ import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ProtectedRoute from "../routes/ProtectedRoute";
 import PaymentPage from "../pages/PaymentPage";
+import FAQ from "../pages/FAQPage";
+
 import OrderSuccessPage from "../pages/OrderSuccessPage";
 import SuccessProtected from "../routes/SuccessProtected";
 import ShopOrderDetails from "../pages/Shop/ShopOrderDetails";
@@ -42,10 +44,6 @@ export const navItems = [
   {
     title: "Products",
     url: "/products",
-  },
-  {
-    title: "Events",
-    url: "/events",
   },
   {
     title: "FAQ",
@@ -69,6 +67,10 @@ export const publicRoutes = [
   {
     component: <Home />,
     route: "/",
+  },
+  {
+    component: <FAQ />,
+    route: "/faq",
   },
   {
     component: <BestSellingPage />,
