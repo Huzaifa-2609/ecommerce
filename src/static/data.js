@@ -30,6 +30,7 @@ import FAQ from "../pages/FAQPage";
 import OrderSuccessPage from "../pages/OrderSuccessPage";
 import SuccessProtected from "../routes/SuccessProtected";
 import ShopOrderDetails from "../pages/Shop/ShopOrderDetails";
+import ShopPreviewPage from "../pages/Shop/ShopPreviewPage";
 
 // navigation Data
 export const navItems = [
@@ -200,6 +201,10 @@ export const publicRoutes = [
         <OrderSuccessPage />,
       </SuccessProtected>
     ),
+  },
+  {
+    route: "/shop/preview/:id",
+    component: <ShopPreviewPage />,
   },
   {
     route: "/order/:id",

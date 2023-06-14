@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { backend_url } from "../../server";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart, removeFromCart } from "../../redux/actions/cart";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const Cart = ({ setOpenCart }) => {
   const { cart } = useSelector((state) => state.cart);
@@ -44,16 +44,15 @@ const Cart = ({ setOpenCart }) => {
           <>
             <div>
               <div className=" bg-[#11b85c]">
-              <h1 className="pt-10 mt-0 text-white text-xl">MY CART</h1>
+                <h1 className="pt-10 mt-0 text-white text-xl">MY CART</h1>
               </div>
-              
-              <div className="flex w-full pt-0 pb-5 pr-5 bg-[#11b85c] items-start justify-end">
-                  <RxCross1
-                    size={25}
-                    className="cursor-pointer"
-                    onClick={() => setOpenCart(false)}
-                  />
 
+              <div className="flex w-full pt-0 pb-5 pr-5 bg-[#11b85c] items-start justify-end">
+                <RxCross1
+                  size={25}
+                  className="cursor-pointer"
+                  onClick={() => setOpenCart(false)}
+                />
               </div>
               {/* Item length */}
               <div className={`${styles.noramlFlex} p-4 ml-7`}>
@@ -112,8 +111,11 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   };
 
   const decrement = (data) => {
-    setValue(value === 1 ? 1 : value - 1);
-    const updateCartData = { ...data, qty: value === 1 ? 1 : value - 1 };
+    setValue(value === data.minimum ? data.minimum : value - 1);
+    const updateCartData = {
+      ...data,
+      qty: value === data.minimum ? data.minimum : value - 1,
+    };
     quantityChangeHandler(updateCartData);
   };
 
