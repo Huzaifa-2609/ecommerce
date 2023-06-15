@@ -24,7 +24,7 @@ const ProductDetails = ({ data }) => {
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const { product } = useSelector((state) => state.products);
-  const [count, setCount] = useState(product?.minimum || 1);
+  const [count, setCount] = useState(data?.minimum);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const ProductDetails = ({ data }) => {
   };
 
   const decrementCount = () => {
-    if (product?.minimum ? count > product?.minimum : count > 1) {
+    if (data?.minimum ? count > data?.minimum : count > 1) {
       setCount(parseInt(count) - 1);
     }
   };
@@ -60,7 +60,7 @@ const ProductDetails = ({ data }) => {
 
   const handleInputChange = (e) => {
     const minValue = 0;
-    const newValue = Math.max(product?.minimum || 1, e.target.value);
+    const newValue = Math.max(data?.minimum || 1, e.target.value);
     setCount(newValue);
   };
 
@@ -120,10 +120,10 @@ const ProductDetails = ({ data }) => {
   return (
     <div className="bg-white">
       {data ? (
-        <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
+        <div className={`${styles.section} w-[90%] md:w-[80%]`}>
           <div className="w-full py-5">
-            <div className="block w-full 800px:flex">
-              <div className="w-full 800px:w-[50%]">
+            <div className="block w-full ">
+              <div className="w-full md:w-[50%]">
                 <img
                   src={data && data.images[select]}
                   alt=""
@@ -177,6 +177,7 @@ const ProductDetails = ({ data }) => {
                       type="number"
                       className="bg-gray-200 w-[5rem] text-gray-800 font-medium px-4 py-[11px]"
                       onChange={handleInputChange}
+                      defaultValue={data.minimum}
                     />
                     {/* {count}
                     </input> */}
@@ -347,8 +348,8 @@ const ProductDetailsInfo = ({
       ) : null}
 
       {active === 3 && (
-        <div className="w-full block 800px:flex p-5">
-          <div className="w-full 800px:w-[50%]">
+        <div className="w-full block md:flex p-5">
+          <div className="w-full md:w-[50%]">
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
                 <img

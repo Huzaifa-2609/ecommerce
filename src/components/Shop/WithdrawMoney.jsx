@@ -5,15 +5,17 @@ import styles from "../../styles/styles";
 import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { loadSeller } from "../../redux/actions/user";
 import { AiOutlineDelete } from "react-icons/ai";
+import Spinner from "../loaders/Spinner";
 
 const WithdrawMoney = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.seller);
   const [paymentMethod, setPaymentMethod] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(50);
   const [bankInfo, setBankInfo] = useState({
     bankName: "",
@@ -30,7 +32,7 @@ const WithdrawMoney = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoader(true);
     const withdrawMethod = {
       bankName: bankInfo.bankName,
       bankCountry: bankInfo.bankCountry,
@@ -52,6 +54,8 @@ const WithdrawMoney = () => {
       )
       .then((res) => {
         toast.success("Withdraw method added successfully!");
+        setLoader(false);
+
         dispatch(loadSeller());
         setBankInfo({
           bankName: "",
@@ -63,6 +67,8 @@ const WithdrawMoney = () => {
         });
       })
       .catch((error) => {
+        setLoader(false);
+
         console.log(error.response.data.message);
       });
   };
@@ -111,7 +117,11 @@ const WithdrawMoney = () => {
           className={`${styles.button} text-white !h-[42px] !rounded`}
           onClick={() => (availableBalance < 50 ? error() : setOpen(true))}
         >
-          Withdraw
+          {loader ? (
+            <Spinner color="#ffff" size={8} loading={true} />
+          ) : (
+            "Withdraw"
+          )}
         </div>
       </div>
       {open && (

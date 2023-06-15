@@ -33,7 +33,7 @@ const createPrice = async (productId, product) => {
     console.log("Product ID:", productId);
     console.log({ product });
     const price = await stripe.prices.create({
-      unit_amount: product.discountPrice,
+      unit_amount: product.discountPrice * 100,
       currency: "usd",
       product: productId,
     });

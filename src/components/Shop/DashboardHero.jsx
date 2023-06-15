@@ -11,15 +11,12 @@ import { DataGrid } from "@material-ui/data-grid";
 
 const DashboardHero = () => {
   const dispatch = useDispatch();
-  // const { orders } = useSelector((state) => state.order);
+  const { orders } = useSelector((state) => state.order);
   const { seller } = useSelector((state) => state.seller);
   const { product } = useSelector((state) => state.products);
-  // const seller = [];
-  // const products = [];
-  const orders = [];
 
   useEffect(() => {
-    // dispatch(getAllOrdersOfShop(seller._id));
+    dispatch(getAllOrdersOfShop(seller._id));
     dispatch(getAllProductsShop(seller._id));
   }, [dispatch]);
 

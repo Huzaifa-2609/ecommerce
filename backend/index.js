@@ -28,6 +28,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/product", require("./routes/product"));
 app.use("/api/order", require("./routes/order"));
 app.use("/api/payment", require("./routes/payment"));
+app.use("/api/withdraw", require("./routes/withdraw"));
 
 app.use("/api/shop", require("./routes/shop"));
 app.listen(9000, () => {

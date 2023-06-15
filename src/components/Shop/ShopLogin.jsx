@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { server } from "../../server";
+import { server, url } from "../../server";
 import { toast } from "react-hot-toast";
 import Spinner from "../loaders/Spinner";
 import { useDispatch } from "react-redux";
@@ -31,12 +31,11 @@ const ShopLogin = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        navigate("/dashboard");
         console.log(res);
         setLoader(false);
         // dispatch(loadSeller(res.data.user));
 
-        window.location.reload(true);
+        window.location.href = `${url}/dashboard`;
       })
       .catch((err) => {
         setLoader(false);

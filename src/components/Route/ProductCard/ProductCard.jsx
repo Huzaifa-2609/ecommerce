@@ -160,7 +160,7 @@ const ProductCard = ({ data, isEvent }) => {
               </h4>
             </div>
             <span className="font-[400] ml-1 text-[14px] text-[#68d284]">
-              {data?.minimum} min
+              {data?.minimum + " "} minimum
             </span>
           </div>
         </Link>

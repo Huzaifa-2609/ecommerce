@@ -31,7 +31,7 @@ const OrderSuccessPage = () => {
     };
     (async () => {
       setLoader(true);
-      if (session_id) {
+      if (session_id && order) {
         try {
           const { data } = await axios.get(`${server}/order/success`, {
             params: { session_id },
