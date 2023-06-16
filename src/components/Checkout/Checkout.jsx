@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { server } from "../../server";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Spinner from "../loaders/Spinner";
 
 const Checkout = () => {
@@ -37,6 +37,7 @@ const Checkout = () => {
       country === "" ||
       city === ""
     ) {
+      setLoader(false);
       toast.error("Please choose your delivery address!");
     } else {
       const shippingAddress = {
