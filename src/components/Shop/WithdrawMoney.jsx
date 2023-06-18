@@ -117,11 +117,7 @@ const WithdrawMoney = () => {
           className={`${styles.button} text-white !h-[42px] !rounded`}
           onClick={() => (availableBalance < 50 ? error() : setOpen(true))}
         >
-          {loader ? (
-            <Spinner color="#ffff" size={8} loading={true} />
-          ) : (
-            "Withdraw"
-          )}
+          Withdraw
         </div>
       </div>
       {open && (
@@ -315,7 +311,11 @@ const WithdrawMoney = () => {
                         className={`${styles.button} !h-[42px] text-white`}
                         onClick={withdrawHandler}
                       >
-                        Withdraw
+                        {loader ? (
+                          <Spinner color="#ffff" size={8} loading={true} />
+                        ) : (
+                          "Withdraw"
+                        )}
                       </div>
                     </div>
                   </div>
