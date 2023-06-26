@@ -85,10 +85,10 @@ const DashboardHero = () => {
       });
     });
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-8 bg-[#cacbcd]">
       <h3 className="text-[22px] font-Poppins pb-2">Overview</h3>
       <div className="w-full block 800px:flex items-center justify-between">
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-[#99c7ff] shadow rounded px-2 py-5">
           <div className="flex items-center">
             <AiOutlineMoneyCollect
               size={30}
@@ -102,7 +102,7 @@ const DashboardHero = () => {
               <span className="text-[16px]">(with 10% service charge)</span>
             </h3>
           </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
+          <h5 className="pt-2 pl-[5px] text-[22px] font-[500]">
             ${availableBalance}
           </h5>
           <Link to="/dashboard-withdraw-money">
@@ -110,7 +110,7 @@ const DashboardHero = () => {
           </Link>
         </div>
 
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-[#99c7ff] shadow rounded px-2 py-5">
           <div className="flex items-center">
             <MdBorderClear size={30} className="mr-2" fill="#00000085" />
             <h3
@@ -119,7 +119,7 @@ const DashboardHero = () => {
               All Orders
             </h3>
           </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
+          <h5 className="pt-2 pl-[5px] text-[22px] font-[500]">
             {orders && orders.length}
           </h5>
           <Link to="/dashboard-orders">
@@ -127,7 +127,7 @@ const DashboardHero = () => {
           </Link>
         </div>
 
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-[#99c7ff] shadow rounded px-2 py-5">
           <div className="flex items-center">
             <AiOutlineMoneyCollect
               size={30}
@@ -140,7 +140,7 @@ const DashboardHero = () => {
               All Products
             </h3>
           </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
+          <h5 className="pt-2 pl-[5px] text-[22px] font-[500]">
             {product && product.length}
           </h5>
           <Link to="/dashboard-products">
@@ -150,7 +150,7 @@ const DashboardHero = () => {
       </div>
       <br />
       <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
-      <div className="w-full min-h-[45vh] bg-white rounded">
+      <div className="w-full min-h-[45vh] bg-[#99c7ff] rounded">
         <DataGrid
           rows={row}
           columns={columns}

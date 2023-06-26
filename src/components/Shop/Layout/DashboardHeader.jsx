@@ -11,7 +11,7 @@ const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
   const imageUrl = seller.avatar;
   return (
-    <div className="w-full h-[80px] bg-white shadow sticky top-0 left-0 z-30 flex items-center justify-between px-4">
+    <div className="w-full h-[80px] bg-[#99c7ff] shadow sticky top-0 left-0 z-30 flex items-center justify-between px-4">
       <div>
         <Link to="/dashboard">
           <img className="h-[120px]" height={120} src="/logo.png" alt="" />

@@ -87,7 +87,7 @@ const AllRefundOrders = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
+        <div className="w-full mx-8 pt-1 mt-10 bg-[#99c7ff]">
           <DataGrid
             rows={row}
             columns={columns}
