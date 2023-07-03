@@ -33,9 +33,7 @@ const ShopLogin = () => {
       .then((res) => {
         console.log(res);
         setLoader(false);
-        // dispatch(loadSeller(res.data.user));
-
-        window.location.href = `${url}/dashboard`;
+        dispatch(loadSeller());
       })
       .catch((err) => {
         setLoader(false);

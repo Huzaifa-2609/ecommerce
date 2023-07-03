@@ -39,12 +39,12 @@ const ProductDetails = ({ data }) => {
   }, [data, wishlist]);
 
   const incrementCount = () => {
-    setCount(parseInt(count) + 1);
+    setCount((oldCount) => parseInt(oldCount) + 1);
   };
 
   const decrementCount = () => {
     if (data?.minimum ? count > data?.minimum : count > 1) {
-      setCount(parseInt(count) - 1);
+      setCount((oldCount) => parseInt(oldCount) - 1);
     }
   };
 
@@ -119,7 +119,7 @@ const ProductDetails = ({ data }) => {
 
   return (
     <div className="bg-white">
-      {data ? (
+      {!data ? (
         <div className={`${styles.section} w-[90%] md:w-[80%]`}>
           <div className="w-full py-5">
             <div className="block w-full ">
@@ -177,7 +177,7 @@ const ProductDetails = ({ data }) => {
                       type="number"
                       className="bg-gray-200 w-[5rem] text-gray-800 font-medium px-4 py-[11px]"
                       onChange={handleInputChange}
-                      defaultValue={data.minimum}
+                      defaultValue={data.minimum || count}
                     />
                     {/* {count}
                     </input> */}
@@ -255,7 +255,9 @@ const ProductDetails = ({ data }) => {
           <br />
           <br />
         </div>
-      ) : null}
+      ) : (
+        <Skeleton count={3} />
+      )}
     </div>
   );
 };

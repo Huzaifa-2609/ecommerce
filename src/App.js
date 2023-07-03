@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { isSeller, isLoading } = useSelector((state) => state.seller);
+  const [userRoutes, setRoutes] = useState([]);
 
   useEffect(() => {
     // Store.dispatch(loadUser());
@@ -18,12 +20,17 @@ function App() {
     Store.dispatch(getAllProducts());
     // Store.dispatch(getAllEvents());
   }, []);
+
+  useEffect(() => {
+    console.log("asdasd");
+    setRoutes(routes);
+  }, [isSeller, isAuthenticated]);
   return (
     <div className="App">
       <BrowserRouter>
         <Toaster />
         <Routes>
-          {routes.map((item) => (
+          {userRoutes.map((item) => (
             <Route path={item.route} element={item.component} />
           ))}
           {(!isAuthenticated || !user) &&
