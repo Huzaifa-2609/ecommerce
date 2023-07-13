@@ -89,7 +89,7 @@ const getCheckoutLink = async (items) => {
     line_items: items,
     mode: "payment",
     payment_method_types: ["card"],
-    cancel_url: "http://localhost:3000/payment",
+    cancel_url: "http://localhost:3000/checkout",
   });
   return session.url;
 };
